@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const imagemin = require('gulp-imagemin')
 const uglify = require('gulp-uglify')
 const sass = require('gulp-sass')
+const concat = require('gulp-concat')
 
 /*
   -- TOP LEVEL FUNCTIONS --
@@ -30,11 +31,11 @@ gulp.task('imageMin', () =>
 );
 
 // Minify JS
-gulp.task('minify', function() {
-  gulp.src('src/js/*.js')
-      .pipe(uglify())
-      .pipe(gulp.dest('dist/js'))
-})
+// gulp.task('minify', function() {
+//   gulp.src('src/js/*.js')
+//       .pipe(uglify())
+//       .pipe(gulp.dest('dist/js'))
+// })
 
 // Compile Sass
 gulp.task('sass', function() {
@@ -43,6 +44,14 @@ gulp.task('sass', function() {
       .pipe(gulp.dest('dist/css'))
 })
 
-gulp.task('default', function() {
-  return console.log('Gulp is running...')
+// Scripts
+gulp.task('scripts', function() {
+  gulp.src('src/js/*.js')
+      .pipe(concat('main.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest('dist/js'))
 })
+
+// Esto para correr todas las tareas con un
+// solo llamado
+gulp.task('default', ['message', 'copyHtml', 'imageMin', 'sass', 'scripts'])
