@@ -55,3 +55,12 @@ gulp.task('scripts', function() {
 // Esto para correr todas las tareas con un
 // solo llamado
 gulp.task('default', ['message', 'copyHtml', 'imageMin', 'sass', 'scripts'])
+
+
+// Para que gulp siempre este viendo los cambios
+gulp.task('watch', function() {
+  gulp.watch('src/js/*.js', ['scripts'])
+  gulp.watch('src/images/*', ['imageMin'])
+  gulp.watch('src/sass/*.scss', ['sass'])
+  gulp.watch('src/*.html', ['copyHtml'])
+})
